@@ -50,6 +50,22 @@ const colorFilterShuffle2 = (array) => {
 console.log(colorFilterShuffle2(collections))
 
 
+const shuffles = (array) => {
+    if(array.length <= 1){
+        return "The array is empty"
+    } else {
+        //removes the first element from an array and returns it
+        array.shift()
+        for (let i=0; i<array.length; i++){
+            let randomIndex = Math.floor(Math.random() * array.length)
+            let temp = array[randomIndex]
+        array[randomIndex] = array [i]
+
+        }
+    }
+}
+
+
 
 
 
@@ -149,7 +165,7 @@ var arr2 = [7, 8, 2, 3, 1, 5, 4]
 var arr3 = [12, 16, 21, 13, 1, 51, 41]
 // Expected output: [3, 7, 10, 5, 4, 8, 2, 1]
 
-//write a function that can accept a dynamic # of arguments using the dpread operator
+//write a function that can accept a dynamic # of arguments using the spread operator
 const noDuplicates = (array1, ...array2) => {
     //set a variable to push the values for the new array without duplicates
     var noDuplicateArray = []
@@ -158,6 +174,7 @@ const noDuplicates = (array1, ...array2) => {
     //for every value in the ine new combined array
     for(var value of combinedArray){
         //this is a part I looked up- I'm not sure exactly how it works but I think that you are basically checking if the value already exists inside noDuplicateArray by testing if the index is at -1?, and if it doesn't then you are pushing it into the new array
+        //if you ask for the index of something that DOESNT EXIST IN THE ARRAY, it returns a negative one. 
         if(noDuplicateArray.indexOf(value) === -1){
             noDuplicateArray.push(value);
         }
@@ -165,4 +182,24 @@ const noDuplicates = (array1, ...array2) => {
     return noDuplicateArray;
 }
 
-console.log(noDuplicates(arr1, arr2, arr3))
+//REFACTORED VERSION
+const removeDupes = (array1, ...array2) => {
+    let emptyArray = []
+    let mergedArray = array1.concat(...array2)
+    mergedArray.map(value=> {
+        if (emptyArray.indexOf(value) === -1){
+            emptyArray.push(value)
+        }
+    })
+    return emptyArray
+}
+
+//OTHER REFACTORED VERSION
+function removeDuplicates(array) {
+    return array.filter((value, index) => array.indexOf(value) === index)
+  }
+
+// console.log(noDuplicates(arr1, arr2, arr3))
+
+console.log(removeDupes(arr1, arr2, arr3))
+console.log(removeDuplicates(arr1))
